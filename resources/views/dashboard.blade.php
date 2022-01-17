@@ -7,13 +7,13 @@
 
     <div class="py-12">
         <div class="mx-2 sm:mx-4 sm:px-6 lg:px-8">
-          @hasanyrole('writer|admin')
+          @can('write posts')
           <div class="mb-4 flex justify-end">
-            <a href="#" type="button" class="hover:cursor-pointer inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <a href="{{ route('posts.create') }}" type="button" class="hover:cursor-pointer inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 Create Post
               </a>
         </div>
-          @endhasanyrole
+          @endcan
             <div class="bg-white dark:bg-gray-700 overflow-hidden shadow-sm sm:rounded-lg">
 
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
@@ -43,16 +43,16 @@
                           </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          @hasanyrole('editor|admin')
-                          <a href="#" type="button" class="hover:cursor-pointer ml-5 bg-white dark:bg-gray-600 py-2 px-3 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                          @can('edit posts')
+                          <a href="{{ route('posts.edit', $post->id) }}" type="button" class="hover:cursor-pointer ml-5 bg-white dark:bg-gray-600 py-2 px-3 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                             Edit
                           </a>
-                          @endhasanyrole
-                          @hasanyrole('publisher|admin')
+                          @endcan
+                          @can('publish posts')
                           <a href="#" type="button" class="hover:cursor-pointer ml-5 bg-green-400 dark:bg-green-600 py-2 px-3 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 dark:text-gray-200 hover:bg-green-50 dark:hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                             Publish
                           </a>
-                          @endhasanyrole
+                          @endcan
                         </td>
                       </tr>
                       @endforeach

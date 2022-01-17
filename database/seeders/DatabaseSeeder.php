@@ -16,18 +16,32 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Role::create(['name' => 'admin']);
-        Role::create(['name' => 'editor']);
-        Role::create(['name' => 'publisher']);
-        Role::create(['name' => 'user']);
-        Role::create(['name' => 'writer']);
-
-        Role::create(['name' => 'Super-Admin']);
-
+        /**
+         * Permissions
+         */
         Permission::create(['name' => 'edit posts']);
         Permission::create(['name' => 'publish posts']);
         Permission::create(['name' => 'write posts']);
 
+        /**
+         * Roles
+         */
+        $admin = Role::create(['name' => 'admin']);
+
+        $editor = Role::create(['name' => 'editor']);
+        $editor->givePermissionTo('edit posts');
+
+        $publisher = Role::create(['name' => 'publisher']);
+        $publisher->givePermissionTo('publish posts');
+
+        Role::create(['name' => 'user']);
+
+        $writer = Role::create(['name' => 'writer']);
+        $writer->givePermissionTo('write posts');
+
+        /** 
+         * Users
+         */
         $admin = \App\Models\User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
@@ -63,7 +77,9 @@ class DatabaseSeeder extends Seeder
         ]);
         $writer->assignRole('writer');
 
-        // \App\Models\User::factory(10)->create();
+        /**
+         * Posts
+         */
         Post::factory(10)->create();
     }
 }
